@@ -3,8 +3,6 @@
 #### 介绍
 RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spring-boot等。十分便于依托于企业级环境二次开发
 
-
-
 #### 项目结构
 说明
 ```shell
@@ -51,12 +49,6 @@ cd java-rag
 ```shell
 mvn clean install
 ```
-   
-   
-
-
-
-
 
 
 #### 特技

@@ -1,9 +1,10 @@
 package org.service;
 
-import okhttp3.Credentials;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import okhttp3.*;
+import org.constant.Config;
+import org.entity.Document;
+import org.utils.SnowflakeIdGenerator;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -103,8 +104,71 @@ public class ESClient {
         }
     }
 
+
+    /**
+     * 向Elasticsearch添加一个新的文档块。
+     *
+     * @param document 要添加的文档对象
+     * @return 是否成功添加
+     */
+    public boolean addChunk(Document document) {
+        // 生成唯一的ID
+        String uniqueId = SnowflakeIdGenerator.generateUniqueID(); // 使用Snowflake算法生成唯一ID
+
+        // 将Document对象转换为JSON格式的字符串
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = "";
+        try {
+            jsonString = objectMapper.writeValueAsString(document);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        // 发送POST请求到Elasticsearch
+        RequestBody body = RequestBody.create(jsonString, MediaType.get("application/json; charset=utf-8"));
+        Request request = new Request.Builder()
+                .url(esUrl + "/documents/_create/" + uniqueId)
+                .post(body)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            // 检查响应状态码是否为201，表示文档已成功添加
+            if (response.isSuccessful() && response.code() == 201) {
+                // 刷新索引
+                flushIndex();
+                System.out.println("embedding 添加成功！");
+                return true;
+            } else {
+                System.out.println("embedding 添加失败，状态码：" + response.code());
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 刷新Elasticsearch索引。
+     */
+    private void flushIndex() {
+        Request request = new Request.Builder()
+                .url(esUrl + "/_flush?refresh=true")
+                .post(RequestBody.create("", MediaType.get("application/json; charset=utf-8")))
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                System.out.println("刷新索引失败，状态码：" + response.code());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
-        ESClient esClient = new ESClient("https://124.223.85.176:9200", "elastic", "8hbdbMHjAsx9bfDJFh9U");
+        ESClient esClient = new ESClient(Config.esUrl, Config.esUserName, Config.esPassWord);
         esClient.testConnection();
     }
 }

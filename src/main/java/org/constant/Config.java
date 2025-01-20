@@ -16,4 +16,9 @@ public class Config {
 
     // Redis 过期时间
     public static int REDIS_EXPIRE_SECONDS = 180;
+
+    // ES 连接配置
+    public static final String esUrl = "https://124.223.85.176:9200";
+    public static final String esUserName = "elastic";
+    public static final String esPassWord = "8hbdbMHjAsx9bfDJFh9U";
 }

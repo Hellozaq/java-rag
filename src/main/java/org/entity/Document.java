@@ -1,27 +1,47 @@
 package org.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.HashMap;
+import lombok.Data;
 
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL) // 忽略 null 值字段
 public class Document {
+    @JsonProperty("user_id")
     private String userId;
+    @JsonProperty("file_id")
     private String fileId;
+    @JsonProperty("kb_id")
     private String kbId;
+    @JsonProperty("chunk_id")
     private Integer chunkId;
+    @JsonProperty("chunk_size")
     private Integer chunkSize;
+    @JsonProperty("chunk_text")
     private String chunkText;
+    @JsonProperty("text_emb")
     private float[] textEmb;
-    private String docType;
-    private String version;
-    private String author;
-    private Long createdTime;
-    private Long modifiedTime;
-    private String fileName;
-    private String storagePath;
-    private Float score;
+    @JsonProperty("clip_emb")
     private float[] clipEmb;
+    @JsonProperty("doc_type")
+    private String docType;
+    @JsonProperty("version")
+    private String version;
+    @JsonProperty("author")
+    private String author;
+    @JsonProperty("created_time")
+    private Long createdTime;
+    @JsonProperty("modified_time")
+    private Long modifiedTime;
+    @JsonProperty("file_name")
+    private String fileName;
+    @JsonProperty("storage_path")
+    private String storagePath;
+    @JsonProperty("_score")
+    private Float score;
 
-    // 构造器、getter和setter省略
 
     public Map<String, Object> toMap() {
         Map<String, Object> docMap = new HashMap<>();
@@ -55,3 +75,4 @@ public class Document {
         return metaData;
     }
 }
+

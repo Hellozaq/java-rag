@@ -1,4 +1,4 @@
-package org.service;
+package org.utils;
 
 import javax.net.ssl.*;
 import java.security.KeyManagementException;

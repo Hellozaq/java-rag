@@ -4,6 +4,8 @@ import io.minio.*;
 import io.minio.errors.*;
 import java.io.*;
 import java.net.URL;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 
 public class MinIOClient {
@@ -39,30 +41,66 @@ public class MinIOClient {
         }
     }
 
+//    public boolean downloadFile(String bucketName, String objectName, String downloadPath) {
+//        try {
+//            minioClient.getObject(GetObjectArgs.builder()
+//                    .bucket(bucketName)
+//                    .object(objectName)
+//                    .build());
+//            return true;
+//        } catch (Exception e) {
+//            System.out.println("Error downloading file: " + e.getMessage());
+//            return false;
+//        }
+//    }
     public boolean downloadFile(String bucketName, String objectName, String downloadPath) {
         try {
-            minioClient.getObject(GetObjectArgs.builder()
+            // 创建目标文件的File对象
+            File outputFile = new File(downloadPath + File.separator + objectName);
+            // 创建输出流用于写入文件
+            FileOutputStream outputStream = new FileOutputStream(outputFile);
+
+            // 获取对象并读取数据
+            InputStream inputStream = minioClient.getObject(GetObjectArgs.builder()
                     .bucket(bucketName)
                     .object(objectName)
                     .build());
+
+            // 将数据从输入流复制到输出流
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            // 关闭流
+            outputStream.close();
+            inputStream.close();
+
             return true;
-        } catch (Exception e) {
+        } catch (MinioException | IOException e) {
             System.out.println("Error downloading file: " + e.getMessage());
             return false;
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e);
         }
     }
 
+
+
     public static void main(String[] args) {
-        String minioEndpoint = "124.223.85.176:9000";
+        String minioEndpoint = "http://124.223.85.176:9000";
         String minioAccessKey = "ROOTNAME";
         String minioSecretKey = "CHANGEME123";
 
         MinIOClient minioClient = MinIOClient.getInstance(minioEndpoint, minioAccessKey, minioSecretKey);
 
-        String file_path = "../parser/data/Lenovo Tab M11 User Guide_20231127.pdf";
-        String file_out_path = "../parser/data/out.pdf";
+        String file_path = "C:\\Users\\19664\\Desktop\\demo.png";
+        String file_out_path = "C:\\Users\\19664\\Desktop\\tmp";
         String bucket_name = "documents";
-        String object_name = "Guide_20231127.pdf";
+        String object_name = "demo.png";
 
         // 上传文件
         boolean uploadSuccess = minioClient.uploadFile(bucket_name, object_name, file_path);

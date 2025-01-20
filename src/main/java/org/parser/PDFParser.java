@@ -6,7 +6,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import java.io.File;
 import java.io.IOException;
 
-public class PDFParser {
+public class PDFParser implements FileParser{
 
     /**
      * 解析PDF文件并返回其文本内容
@@ -15,7 +15,7 @@ public class PDFParser {
      * @return 解析后的字符串
      * @throws IOException 如果发生I/O错误
      */
-    public static String parsePDF(File file) throws IOException {
+    public  String parse(File file) throws IOException {
         try (PDDocument document = PDDocument.load(file)) {
             PDFTextStripper pdfTextStripper = new PDFTextStripper();
             return pdfTextStripper.getText(document);
@@ -29,15 +29,16 @@ public class PDFParser {
      * @return 解析后的字符串
      * @throws IOException 如果发生I/O错误
      */
-    public static String parsePDF(String filePath) throws IOException {
+    public  String parse(String filePath) throws IOException {
         File file = new File(filePath);
-        return parsePDF(file);
+        return parse(file);
     }
 
     // 测试方法
     public static void main(String[] args) {
         try {
-            String content = parsePDF("C:\\Users\\19664\\Desktop\\2311.12351v2.pdf");
+            PDFParser parser = new PDFParser();
+            String content = parser.parse("C:\\Users\\19664\\Desktop\\2311.12351v2.pdf");
             System.out.println(content);
         } catch (IOException e) {
             e.printStackTrace();

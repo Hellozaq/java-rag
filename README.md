@@ -1,39 +1,71 @@
 # java-rag
 
 #### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spring-boot等。十分便于依托于企业级环境二次开发
 
-#### 软件架构
-软件架构说明
 
+
+#### 项目结构
+说明
+```shell
+──package org
+    ├── constant
+    │   └── Config.java
+    ├── entity
+    │   ├── Document.java
+    │   ├── File.java
+    │   ├── KnowledgeBase.java
+    │   └── User.java
+    ├── parser
+    │   ├── ExcelParser.java
+    │   ├── FileParser.java
+    │   ├── FileParserFactory.java
+    │   ├── HTMLParser.java
+    │   ├── PDFParser.java
+    │   ├── PPTParser.java
+    │   ├── PureTextParser.java
+    │   └── WordParser.java
+    └── service
+        ├── ESClient.java
+        ├── EmbeddingService.java
+        ├── LLMService.java
+        ├── Main.java
+        ├── MinIOClient.java
+        ├── MysqlClient.java
+        ├── RedisClient.java
+        └── TrustAllCerts.java
+
+```
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  clone 代码
+```shell
+git clone https://gitee.com/ChinaYiqun/java-rag.git
+```    
+2. 进入项目目录
+```shell
+cd java-rag
+```
+3. 配置 Maven 依赖
+```shell
+mvn clean install
+```
+   
+   
 
-#### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
 
-#### 参与贡献
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
 
 
 #### 特技
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+- OpenAI式 LLM/Embedding 接口
+- 十分简洁的依赖项管理 , pom.xml(Maven)
+- 支持多用户、多知识库 管理
+- 搜索策略自由编排:多路召回/粗排/精排/重排
+- 文件分块自由编排：固定大小/句子分割/递归分割/语义分块
+- 主流文件解析支持 Apache POI
+- 主流数据库集成 Elastic Search/Redis/Mysql/MinIO
+- 配置灵活度高度定制 Nacos

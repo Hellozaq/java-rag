@@ -3,6 +3,7 @@ package org.service;
 import okhttp3.*;
 import org.constant.Config;
 import org.json.JSONObject;
+import org.service.db.RedisClient;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.service;
+package org.service.db;
 
 import org.constant.Config;
 import redis.clients.jedis.Jedis;

@@ -1,4 +1,4 @@
-package org.service;
+package org.service.db;
 
 import com.alibaba.fastjson.JSON;
 

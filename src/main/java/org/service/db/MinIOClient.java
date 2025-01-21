@@ -1,12 +1,10 @@
-package org.service;
+package org.service.db;
 
 import io.minio.*;
 import io.minio.errors.*;
 import java.io.*;
-import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.time.Duration;
 
 public class MinIOClient {
     private static MinIOClient instance;

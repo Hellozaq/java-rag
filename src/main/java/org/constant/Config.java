@@ -21,4 +21,8 @@ public class Config {
     public static final String esUrl = "https://124.223.85.176:9200";
     public static final String esUserName = "elastic";
     public static final String esPassWord = "8hbdbMHjAsx9bfDJFh9U";
+
+    // Jina API 密钥
+    public static final String Jina_API_KEY = "jina_852794709b6d4a858b87ef1361ce0112hHKiLuPFe9FkYssD6RcVG9kiJD8D";
+
 }

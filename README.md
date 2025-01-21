@@ -6,32 +6,67 @@ RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spri
 #### 项目结构
 说明
 ```shell
-──package org
-    ├── constant
-    │   └── Config.java
-    ├── entity
-    │   ├── Document.java
-    │   ├── File.java
-    │   ├── KnowledgeBase.java
-    │   └── User.java
-    ├── parser
-    │   ├── ExcelParser.java
-    │   ├── FileParser.java
-    │   ├── FileParserFactory.java
-    │   ├── HTMLParser.java
-    │   ├── PDFParser.java
-    │   ├── PPTParser.java
-    │   ├── PureTextParser.java
-    │   └── WordParser.java
-    └── service
-        ├── ESClient.java
-        ├── EmbeddingService.java
-        ├── LLMService.java
-        ├── Main.java
-        ├── MinIOClient.java
-        ├── MysqlClient.java
-        ├── RedisClient.java
-        └── TrustAllCerts.java
+├── LICENSE
+├── README.en.md
+├── README.md
+├── assert
+│   ├── es.sql
+│   └── install.sh
+├── pom.xml
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── org
+│   │   │       ├── chunk
+│   │   │       │   ├── FixedSizeSplitter.java
+│   │   │       │   ├── RecursiveSplitter.java
+│   │   │       │   ├── SemanticBlockSplitter.java
+│   │   │       │   ├── SentenceSplitter.java
+│   │   │       │   └── TextSplitter.java
+│   │   │       ├── constant
+│   │   │       │   └── Config.java
+│   │   │       ├── entity
+│   │   │       │   ├── Document.java
+│   │   │       │   ├── File.java
+│   │   │       │   ├── KnowledgeBase.java
+│   │   │       │   ├── SearchInput.java
+│   │   │       │   ├── SearchOutput.java
+│   │   │       │   └── User.java
+│   │   │       ├── parser
+│   │   │       │   ├── ExcelParser.java
+│   │   │       │   ├── FileParser.java
+│   │   │       │   ├── FileParserFactory.java
+│   │   │       │   ├── HTMLParser.java
+│   │   │       │   ├── PDFParser.java
+│   │   │       │   ├── PPTParser.java
+│   │   │       │   ├── PureTextParser.java
+│   │   │       │   └── WordParser.java
+│   │   │       ├── search
+│   │   │       │   └── Pipeline.java
+│   │   │       ├── service
+│   │   │       │   ├── LLMService.java
+│   │   │       │   ├── Main.java
+│   │   │       │   ├── db
+│   │   │       │   │   ├── ESClient.java
+│   │   │       │   │   ├── MinIOClient.java
+│   │   │       │   │   ├── MysqlClient.java
+│   │   │       │   │   └── RedisClient.java
+│   │   │       │   └── embedding
+│   │   │       │       ├── BaichuanEmbeddingService.java
+│   │   │       │       ├── EmbeddingService.java
+│   │   │       │       └── JinaEmbeddingService.java
+│   │   │       └── utils
+│   │   │           ├── HttpClientUtil.java
+│   │   │           ├── SnowflakeIdGenerator.java
+│   │   │           └── TrustAllCerts.java
+│   │   └── resources
+│   └── test
+│       └── java
+│           └── org
+│               └── db
+│                   ├── ESClientTest.java
+│                   └── ElasticsearchConnectionTest.java
+└── target
 
 ```
 

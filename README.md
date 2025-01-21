@@ -1,7 +1,7 @@
 # java-rag
 
 #### 介绍
-RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spring-boot等。十分便于依托于企业级环境二次开发
+RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spring-boot等。更便于依托企业级环境进行改造,更利于二次开发
 
 #### 项目结构
 说明
@@ -51,7 +51,7 @@ mvn clean install
 ```
 
 
-#### 特技
+#### 功能点
 
 - OpenAI式 LLM/Embedding 接口
 - 十分简洁的依赖项管理 , pom.xml(Maven)

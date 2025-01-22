@@ -1,8 +1,35 @@
-# java-rag
+# JAVA-RAG
 
-#### 介绍
+### 介绍
 RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spring-boot等。更便于依托企业级环境进行改造,更利于二次开发
-
+### 用法教程
+#### 💽 数据库存储
+- Redis 多轮对话读写
+- MinIO 文件存储
+- Elastic Search 搜索引擎
+#### 🧠 LLM 对话
+- OpenAI 聊天接口
+- Ollama 聊天接口
+- 带有多轮对话的聊天
+#### 📚 文档解析
+- Word
+- PPT
+- PDF
+- EXCEL
+- PPT
+- MarkDow,HTML
+#### ✂️ 分块
+- 固定大小
+- 句子分割
+- 递归分割
+- 语义分块
+#### 📊 向量化模型
+- Jina-Cobert
+- Baichuan
+#### 🔎 搜索
+- 召回
+- 排序
+- 重排序
 #### 项目结构
 说明
 ```shell

@@ -1,4 +1,4 @@
-package org.service;
+package org.service.LLM;
 
 import okhttp3.*;
 import org.constant.Config;
@@ -8,12 +8,12 @@ import org.service.db.RedisClient;
 import java.io.IOException;
 import java.util.List;
 
-public class LLMService {
+public class OpenAIChatService {
 
     private final String apiKey;
     private final OkHttpClient client;
 
-    public LLMService(String apiKey) {
+    public OpenAIChatService(String apiKey) {
         this.apiKey = apiKey;
         this.client = new OkHttpClient();
     }
@@ -106,7 +106,7 @@ public class LLMService {
         // API的URL
         String url = Config.LLM_URL;
 
-        LLMService llmService = new LLMService(apiKey);
+        OpenAIChatService openAIChatService = new OpenAIChatService(apiKey);
 
         try {
             // 构建请求参数
@@ -119,14 +119,14 @@ public class LLMService {
                     .put("stream", false);
 
             // 这里可以替换为您想要询问的问题
-            String generatedText = llmService.generateText(url, params);
+            String generatedText = openAIChatService.generateText(url, params);
             System.out.println(generatedText);
 
 
             // 测试 generateText 方法，包含聊天ID和新消息
             String chatId = "chat123";
             JSONObject newMessage = new JSONObject().put("role", "user").put("content", "What my last question?");
-            String generatedTextWithChatId = llmService.generateText(url, chatId, newMessage);
+            String generatedTextWithChatId = openAIChatService.generateText(url, chatId, newMessage);
             System.out.println("Generated Text (With Chat ID): " + generatedTextWithChatId);
         } catch (IOException e) {
             e.printStackTrace();

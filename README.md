@@ -2,7 +2,10 @@
 
 ### 介绍
 RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spring-boot等。更便于依托企业级环境进行改造,更利于二次开发
+### 快速入门
+
 ### 用法教程
+
 #### 💽 数据库存储
 - Redis 多轮对话读写
 - MinIO 文件存储
@@ -123,3 +126,13 @@ mvn clean install
 - 主流文件解析支持 Apache POI
 - 主流数据库集成 Elastic Search/Redis/Mysql/MinIO
 - 配置灵活度高度定制 Nacos
+
+
+
+
+### 参考
+
+- [llm-apps-java-spring-ai](https://github.com/ThomasVitale/llm-apps-java-spring-ai/tree/main)
+- [ragflow](https://github.com/infiniflow/ragflow)
+- [ollama](https://github.com/ollama/ollama)
+- [langchain](https://github.com/langchain-ai/langchain)

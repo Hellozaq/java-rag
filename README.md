@@ -30,7 +30,7 @@ RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spri
 - 召回
 - 排序
 - 重排序
-#### 项目结构
+### 项目结构
 说明
 ```shell
 ├── LICENSE
@@ -97,7 +97,7 @@ RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spri
 
 ```
 
-#### 安装教程
+### 安装教程
 
 1.  clone 代码
 ```shell
@@ -113,7 +113,7 @@ mvn clean install
 ```
 
 
-#### 功能点
+### 功能点
 
 - OpenAI式 LLM/Embedding 接口
 - 十分简洁的依赖项管理 , pom.xml(Maven)

@@ -24,5 +24,5 @@ public class Config {
 
     // Jina API 密钥
     public static final String Jina_API_KEY = "jina_852794709b6d4a858b87ef1361ce0112hHKiLuPFe9FkYssD6RcVG9kiJD8D";
-
+    public static final String Jina_multi_vector ="https://api.jina.ai/v1/multi-vector";
 }

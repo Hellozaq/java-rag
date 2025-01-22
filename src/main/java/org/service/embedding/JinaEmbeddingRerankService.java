@@ -7,14 +7,18 @@ import java.io.IOException;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.service.db.ESClient;
 
 public class JinaEmbeddingRerankService implements EmbeddingService{
 
     private final String apiKey;
     private final OkHttpClient client;
-
+    public static final JinaEmbeddingRerankService instance = new JinaEmbeddingRerankService(Config.Jina_API_KEY) ;
+    public static JinaEmbeddingRerankService getInstance() {
+        return instance;
+    }
     public JinaEmbeddingRerankService(String apiKey) {
-        this.apiKey = apiKey;
+        this.apiKey = Config.Jina_API_KEY;
         this.client = new OkHttpClient();
     }
 

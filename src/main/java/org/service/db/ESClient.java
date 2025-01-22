@@ -23,13 +23,16 @@ public class ESClient {
     private String password;
     private OkHttpClient client;
     private static final String QUERY_TEMPLATE_PATH = "assert/es_search_chunk.sql";
+    private static final ESClient instance = new ESClient(Config.esUrl, Config.esUserName, Config.esPassWord);
     public ESClient(String esUrl, String username, String password) {
         this.esUrl = esUrl;
         this.username = username;
         this.password = password;
         this.client = HttpClientUtil.createHttpClient(username, password);
     }
-
+    public static ESClient getInstance() {
+        return instance;
+    }
 
 
     public void testConnection() {
@@ -163,7 +166,7 @@ public class ESClient {
 
 
     public static void main(String[] args) {
-        ESClient esClient = new ESClient(Config.esUrl, Config.esUserName, Config.esPassWord);
+        ESClient esClient = ESClient.getInstance();
         Document d = new Document();
         d.setUserId("200");
         d.setChunkText("哈利波特");

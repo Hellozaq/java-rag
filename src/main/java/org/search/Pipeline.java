@@ -22,12 +22,23 @@ public class Pipeline {
     }
     private SearchInput searchInput;
     private SearchOutput searchOutput;
+
+    public void recall(SearchInput searchInput,SearchOutput searchOutput){
+        RecallStrategy.esRecall(searchInput,searchOutput);
+    }
+
+
     public void recall(){
         RecallStrategy.esRecall(searchInput,searchOutput);
     }
     public void sort(){
         SortStrategy.dummySort(searchInput,searchOutput);
     }
+
+    public void rerank(SearchInput searchInput,SearchOutput searchOutput){
+        RerankStrategy.JinaCobertRerank(searchInput,searchOutput);
+    }
+
     public void rerank(){
         RerankStrategy.JinaCobertRerank(searchInput,searchOutput);
     }

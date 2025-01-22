@@ -38,6 +38,18 @@ public class FileParserFactory {
         return getFileParser(fileType);
     }
 
+    public static String easyParse(String filePath){
+        FileParser parser = FileParserFactory.getFileParserByPath(filePath);
+        String content = null;
+        try {
+            content = parser.parse(filePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return content;
+    }
+
+
 
 
     public static void main(String[] args) {

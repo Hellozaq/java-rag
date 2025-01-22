@@ -18,9 +18,9 @@ public class Document {
     @JSONField(name = "chunk_text")
     String chunkText;
     @JSONField(name = "text_emb")
-    float[] textEmb;
+    double[] textEmb;
     @JSONField(name = "clip_emb")
-    float[] clipEmb;
+    double[] clipEmb;
     @JSONField(name = "doc_type")
     String docType;
     @JSONField(name = "version")
@@ -37,4 +37,11 @@ public class Document {
     String storagePath;
     @JSONField(name = "_score")
     Float score;
+
+    public Document() {
+    }
+
+    public Document(String storagePath) {
+        this.storagePath = storagePath;
+    }
 }

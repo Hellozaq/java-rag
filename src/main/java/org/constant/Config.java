@@ -3,6 +3,7 @@ package org.constant;
 public class Config {
     // API密钥
     public static final String API_KEY = "sk-fec928b1e67db9d34e092c9599e1ce3a";
+    public static final String EMBEDDING_API_URL = "https://api.baichuan-ai.com/v1/embeddings";
     // 使用的模型
     public static final String LLM_MODEL = "Baichuan3-Turbo";
     // API的URL

@@ -3,7 +3,30 @@
 ### 介绍
 RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spring-boot等。更便于依托企业级环境进行改造,更利于二次开发
 ### 快速入门
-
+```java
+    public void demoNaiveRAG() {
+        NaiveRAG naiveRAG = new NaiveRAG(
+                new Document("./202X企业规划.pdf"),
+                "简要总结这篇文章");
+        try {
+            naiveRAG
+                    // 解析
+                    .parsering()
+                    // 分块
+                    .chunking()
+                    // 向量化
+                    .embedding()
+                    // 排序
+                    .sorting()
+                    // 大模型回复
+                    .LLMChat();
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false : "error stack trace";
+        }
+        System.out.println(naiveRAG.getResponse());
+    }
+```
 ### 用法教程
 
 #### 💽 数据库存储

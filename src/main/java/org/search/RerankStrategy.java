@@ -5,6 +5,8 @@ import org.entity.SearchInput;
 import org.entity.SearchOutput;
 import org.entity.Document;
 import org.service.embedding.JinaEmbeddingRerankService;
+import org.utils.DistanceUtils;
+
 import java.util.Comparator;
 import java.io.IOException;
 import java.util.List;
@@ -22,7 +24,7 @@ public class RerankStrategy {
 
             // 计算每个输出向量与输入向量之间的归一化平方误差距离
             List<Double> distances = IntStream.range(0, outputs.length)
-                    .mapToObj(i -> normalizedSquaredErrorDistance(input, outputs[i]))
+                    .mapToObj(i -> DistanceUtils.squaredErrorDistance(input, outputs[i]))
                     .collect(Collectors.toList());
 
             // 将距离与对应的文档一起存储
@@ -42,12 +44,7 @@ public class RerankStrategy {
         }
     }
 
-    private static double normalizedSquaredErrorDistance(double[] v1, double[] v2) {
-        double sum = IntStream.range(0, v1.length)
-                .mapToDouble(i -> Math.pow(v1[i] - v2[i], 2))
-                .sum();
-        return sum / v1.length; // 归一化
-    }
+
 
     private static class DocumentWithDistance {
         private Document document;

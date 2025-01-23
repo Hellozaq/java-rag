@@ -86,7 +86,7 @@ RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spri
 
 ```
 
-### 🧒 简明教程教程
+### 🧒 简明安装教程
 
 1.  clone 代码
 ```shell

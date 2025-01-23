@@ -25,8 +25,12 @@ docker pull docker.elastic.co/kibana/kibana:8.11.4
 # 运行 kibana
 docker run --name kib01 --net elastic -p 5601:5601 docker.elastic.co/kibana/kibana:8.11.4
 
+# 安装minio脚本
+mkdir -p ~/minio/data
+docker run \ -p 9000:9000 \ -p 9090:9090 \ --name minio \ -v ~/minio/data:/data \ -e "MINIO_ROOT_USER=ROOTNAME" \ -e "MINIO_ROOT_PASSWORD=CHANGEME123" \ quay.io/minio/minio server /data --console-address ":9090"
 
-安装mysql 脚本
+
+# 安装mysql 脚本
 sudo docker run --name some-mysql \
   -e MYSQL_ROOT_PASSWORD=my-secret-pw \
   -p 3306:3306 \
@@ -39,7 +43,3 @@ CREATE USER 'some-mysql'@'%' IDENTIFIED WITH mysql_native_password BY 'my-secret
 GRANT ALL PRIVILEGES ON *.* TO 'some-mysql'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
-
-安装minio脚本
-mkdir -p ~/minio/data
-docker run \ -p 9000:9000 \ -p 9090:9090 \ --name minio \ -v ~/minio/data:/data \ -e "MINIO_ROOT_USER=ROOTNAME" \ -e "MINIO_ROOT_PASSWORD=CHANGEME123" \ quay.io/minio/minio server /data --console-address ":9090"

@@ -59,71 +59,34 @@ RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spri
 ### 项目结构
 说明
 ```shell
-├── LICENSE
-├── README.en.md
-├── README.md
-├── assert
-│   ├── es.sql
-│   └── install.sh
+
 ├── pom.xml
 ├── src
 │   ├── main
 │   │   ├── java
 │   │   │   └── org
 │   │   │       ├── chunk
-│   │   │       │   ├── FixedSizeSplitter.java
-│   │   │       │   ├── RecursiveSplitter.java
-│   │   │       │   ├── SemanticBlockSplitter.java
-│   │   │       │   ├── SentenceSplitter.java
-│   │   │       │   └── TextSplitter.java
 │   │   │       ├── constant
-│   │   │       │   └── Config.java
 │   │   │       ├── entity
-│   │   │       │   ├── Document.java
-│   │   │       │   ├── File.java
-│   │   │       │   ├── KnowledgeBase.java
-│   │   │       │   ├── SearchInput.java
-│   │   │       │   ├── SearchOutput.java
-│   │   │       │   └── User.java
 │   │   │       ├── parser
-│   │   │       │   ├── ExcelParser.java
-│   │   │       │   ├── FileParser.java
-│   │   │       │   ├── FileParserFactory.java
-│   │   │       │   ├── HTMLParser.java
-│   │   │       │   ├── PDFParser.java
-│   │   │       │   ├── PPTParser.java
-│   │   │       │   ├── PureTextParser.java
-│   │   │       │   └── WordParser.java
+│   │   │       ├── rag
 │   │   │       ├── search
-│   │   │       │   └── Pipeline.java
 │   │   │       ├── service
-│   │   │       │   ├── LLMService.java
-│   │   │       │   ├── Main.java
+│   │   │       │   ├── LLM
 │   │   │       │   ├── db
-│   │   │       │   │   ├── ESClient.java
-│   │   │       │   │   ├── MinIOClient.java
-│   │   │       │   │   ├── MysqlClient.java
-│   │   │       │   │   └── RedisClient.java
 │   │   │       │   └── embedding
-│   │   │       │       ├── BaichuanEmbeddingService.java
-│   │   │       │       ├── EmbeddingService.java
-│   │   │       │       └── JinaEmbeddingService.java
 │   │   │       └── utils
-│   │   │           ├── HttpClientUtil.java
-│   │   │           ├── SnowflakeIdGenerator.java
-│   │   │           └── TrustAllCerts.java
 │   │   └── resources
 │   └── test
 │       └── java
 │           └── org
+│               ├── chat
 │               └── db
-│                   ├── ESClientTest.java
-│                   └── ElasticsearchConnectionTest.java
-└── target
+
 
 ```
 
-### 安装教程
+### 🧒 简明教程教程
 
 1.  clone 代码
 ```shell
@@ -138,6 +101,25 @@ cd java-rag
 mvn clean install
 ```
 
+4. 创建相关数据库
+
+```shell
+sysctl -w vm.max_map_count=262144
+#  创建 docker network
+docker network create elastic
+#  拉 ES
+docker pull docker.elastic.co/elasticsearch/elasticsearch:8.11.4
+# 运行 ES
+docker run --name es01 --net elastic -p 9200:9200 -it -m 2GB docker.elastic.co/elasticsearch/elasticsearch:8.11.4
+# 重置 password and enrollment token
+docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
+docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+# 安装minio脚本
+mkdir -p ~/minio/data
+docker run \ -p 9000:9000 \ -p 9090:9090 \ --name minio \ -v ~/minio/data:/data \ -e "MINIO_ROOT_USER=ROOTNAME" \ -e "MINIO_ROOT_PASSWORD=CHANGEME123" \ quay.io/minio/minio server /data --console-address ":9090"
+```
+### 🥸 详细安装教程
+- 详见 [链接](doc/install.md)
 
 ### 功能点
 

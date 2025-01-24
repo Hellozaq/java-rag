@@ -1,3 +1,10 @@
+<div align="center">
+<a href="">
+<img src="webapp/resources/biglog.png" alt="ragflow logo">
+</a>
+</div>
+
+
 [English](README.md) | [简体中文](README_ch.md) 
 # JAVA-RAG
 

@@ -1,2 +1,92 @@
-<h2>欢迎来到知识库页面</h2>
-<p>这是知识库页面的内容区域，可以在此展示知识库相关信息。</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layui Grid Example</title>
+    <!-- 引入 Layui CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/layui/2.8.12/css/layui.min.css">
+    <style>
+        /* 为列元素添加左右内边距 */
+       .layui-col-md3,
+       .layui-col-md6 {
+            padding: 0 5px;
+        }
+
+        /* 定义矩形框的样式 */
+       .rectangle {
+            background-color: #f2f2f2;
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* 定义数字的样式 */
+       .big-number {
+            font-size: 48px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 引入 Layui 容器 -->
+<div class="layui-container">
+    <!-- 引入 Layui 行 -->
+    <div class="layui-row">
+        <!-- 第一个矩形框，占 3 列 -->
+        <div class="layui-col-md3">
+            <div class="rectangle">
+                <span class="big-number">1</span>
+            </div>
+        </div>
+        <!-- 第二个矩形框，占 3 列 -->
+        <div class="layui-col-md3">
+            <div class="rectangle">
+                <span class="big-number">2</span>
+            </div>
+        </div>
+        <!-- 第三个矩形框，占 3 列 -->
+        <div class="layui-col-md3">
+            <div class="rectangle">
+                <span class="big-number">3</span>
+            </div>
+        </div>
+        <!-- 第四个矩形框，占 3 列 -->
+        <div class="layui-col-md3">
+            <div class="rectangle">
+                <span class="big-number">4</span>
+            </div>
+        </div>
+    </div>
+    <!-- 新的一行 -->
+    <div class="layui-row">
+        <!-- 第五个矩形框，占 6 列 -->
+        <div class="layui-col-md6">
+            <div class="rectangle">
+                <span class="big-number">5</span>
+            </div>
+        </div>
+        <!-- 第六个矩形框，占 6 列 -->
+        <div class="layui-col-md6">
+            <div class="rectangle">
+                <span class="big-number">6</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 引入 Layui JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/layui/2.8.12/layui.min.js"></script>
+<script>
+    // 初始化 Layui
+    layui.use(function () {
+        var $ = layui.jquery;
+        // 这里可以添加其他 Layui 模块的初始化代码
+    });
+</script>
+</body>
+
+</html>

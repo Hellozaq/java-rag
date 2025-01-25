@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Page</title>
+    <!-- 引入 Layui CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/layui/2.8.12/css/layui.min.css">
+    <style>
+        /* 整体页面容器 */
+       .page-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 定义聊天区域的样式 */
+       .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            border: none;
+            padding: 0;
+        }
+
+        /* 定义消息样式 */
+       .message {
+            margin-bottom: 10px;
+            max-width: 70%;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        /* 对方消息样式 */
+       .message.other {
+            background-color: #f1f0f0;
+            float: left;
+            clear: both;
+        }
+
+        /* 我方消息样式 */
+       .message.self {
+            background-color: #0084ff;
+            color: white;
+            float: right;
+            clear: both;
+        }
+
+        /* 定义输入框和发送按钮区域样式 */
+       .input-area {
+            padding: 10px 0;
+            /* 去掉顶部边框 */
+            border-top: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            z-index: 100;
+        }
+
+        /* 让输入框和按钮在同一行显示 */
+       .layui-form-item {
+            display: flex;
+            align-items: center;
+        }
+
+       .layui-input {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        /* 确保容器内元素双端对齐 */
+       .layui-container {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 90%; /* 可以调整这个值来控制左右边距 */
+        }
+    </style>
+</head>
+
+<body>
+<!-- 整体页面容器 -->
+<div class="page-container">
+    <!-- 引入 Layui 容器 -->
+    <div class="layui-container">
+        <!-- 引入 Layui 行 -->
+        <div class="layui-row">
+            <!-- 核心区域，占 12 列 -->
+            <div class="layui-col-md12">
+                <!-- 聊天历史消息展示区域 -->
+                <div class="chat-container" id="chatHistory">
+                    <div class="message self">我：你好</div>
+                    <!-- 对方消息 -->
+                    <div class="message other">🤖：你好！我是机器人助理，我能回答各类知识问题，如科学、历史、文化等；创作多种文本，像诗歌、小说、计划书；辅助语言学习，包括语法、翻译；启发创意，如广告、手工灵感；陪日常闲聊，倾听分享情绪；解逻辑推理题；整理总结信息；提供编程代码示例并协助解决编程问题。</div>
+
+                    <div class="message self">我：忙了一天工作。</div>
+
+                    <div class="message other">🤖：辛苦了呀，忙了一天工作肯定挺累的。快坐下来好好休息休息，放松一下。可以和我说说今天工作上有没有发生什么特别的事儿，不管是开心的还是让你觉得有点小郁闷的，都能跟我聊聊，说不定说出来会感觉轻松不少呢。 </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 输入框和发送按钮区域，占 12 列 -->
+    <div class="layui-row">
+        <div class="layui-col-md12 input-area">
+            <div class="layui-container">
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <input type="text" id="inputMessage" placeholder="请输入消息" class="layui-input">
+                        <button class="layui-btn" id="sendButton">发送</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入 Layui JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/layui/2.8.12/layui.min.js"></script>
+<script>
+    layui.use(['jquery'], function () {
+        var $ = layui.jquery;
+
+        // 点击发送按钮事件
+        $('#sendButton').on('click', function () {
+            var message = $('#inputMessage').val();
+            if (message) {
+                // 添加新消息到聊天历史
+                $('#chatHistory').append('<div class="message self">我：' + message + '</div>');
+                // 清空输入框
+                $('#inputMessage').val('');
+                // 滚动到聊天历史底部
+                $('#chatHistory').scrollTop($('#chatHistory')[0].scrollHeight);
+            }
+        });
+
+        // 监听输入框按下回车键事件
+        $('#inputMessage').on('keydown', function (e) {
+            if (e.keyCode === 13) {
+                $('#sendButton').click();
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

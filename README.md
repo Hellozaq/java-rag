@@ -72,6 +72,10 @@ The RAG (Retrieval-Augmented Generation) project is implemented in pure Java wit
 - Sorting
 - Re-ranking
 
+#### 🎁 [more pipeline](doc/pipeline.md)
+- Advanced RAG
+- Modular RAG
+- 
 ### Project Structure
 Explanation
 ```shell

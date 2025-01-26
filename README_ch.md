@@ -34,6 +34,7 @@ RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spri
         System.out.println(naiveRAG.getResponse());
     }
 ```
+
 ### 用法教程
 
 #### 💽 [数据库存储](doc/db.md)
@@ -63,6 +64,9 @@ RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spri
 - 召回
 - 排序
 - 重排序
+#### 🎁 [更多 pipeline](doc/pipeline.md)
+- Advanced RAG
+- Modular RAG
 ### 项目结构
 说明
 ```shell

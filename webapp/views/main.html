@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>基于layui的界面设计</title>
-    <!-- 引入layui的CSS文件，注意在正式项目中请替换为正确的路径 -->
+    <title>基于 layui 的界面设计</title>
+    <!-- 引入 layui 的 CSS 文件，注意在正式项目中请替换为正确的路径 -->
     <link rel="stylesheet" href="//unpkg.com/layui@2.9.21/dist/css/layui.css">
     <style>
         body {
@@ -65,69 +65,42 @@
 <!-- 导航栏 -->
 <ul class="layui-nav" lay-filter="demo-filter-nav">
     <div class="layui-nav-left">
-        <li class="layui-nav-item"><a href="#">Java-RAG</a></li>
+        <li class="layui-nav-item"><a href="javascript:void(0);" data-url="home.html">首页</a></li>
     </div>
     <div class="layui-nav-center">
-        <li class="layui-nav-item layui-this"><a href="#">知识库</a></li>
-        <li class="layui-nav-item"><a href="#">聊天</a></li>
-        <li class="layui-nav-item"><a href="#">搜索</a></li>
-        <li class="layui-nav-item"><a href="#">模型管理</a></li>
-        <li class="layui-nav-item"><a href="#">向量管理</a></li>
+        <li class="layui-nav-item layui-this"><a href="javascript:void(0);" data-url="knowledge_base.html">知识库</a></li>
+        <li class="layui-nav-item"><a href="javascript:void(0);" data-url="chat.html">聊天</a></li>
+        <li class="layui-nav-item"><a href="javascript:void(0);" data-url="search.html">搜索</a></li>
+        <li class="layui-nav-item"><a href="javascript:void(0);" data-url="model_management.html">模型管理</a></li>
+        <li class="layui-nav-item"><a href="javascript:void(0);" data-url="vector_management.html">向量管理</a></li>
     </div>
     <div class="layui-nav-right">
-        <li class="layui-nav-item"><a href="#">我的信息</a></li>
+        <li class="layui-nav-item"><a href="javascript:void(0);" data-url="end_page.html">尾页</a></li>
     </div>
 </ul>
 <!-- 内容区域 -->
 <div class="content">
-    <!-- 这里可以根据不同的tab内容进行填充 -->
+    <!-- 这里可以根据不同的 tab 内容进行填充 -->
 </div>
-<!-- 引入layui的JS文件，注意在正式项目中请替换为正确的路径 -->
+<!-- 引入 layui 的 JS 文件，注意在正式项目中请替换为正确的路径 -->
 <script src="//unpkg.com/layui@2.9.21/dist/layui.js"></script>
 <script>
     layui.use(['element', 'jquery'], function () {
         var element = layui.element;
         var $ = layui.jquery;
 
-        // 这里可以添加tab切换的相关逻辑
-        element.on('nav(demo-filter-nav)', function (elem) {
-            var tab = elem.text();
-            // 根据不同的tab切换内容区域的显示
-            var content = $('.content');
-            var fileName;
-            switch (tab) {
-                case '知识库':
-                    fileName = 'knowledge_base.html';
-                    break;
-                case '聊天':
-                    fileName = 'chat.html';
-                    break;
-                case '搜索':
-                    fileName = 'search.html';
-                    break;
-                case '模型管理':
-                    fileName = 'model_management.html';
-                    break;
-                case '向量管理':
-                    fileName = 'vector_management.html';
-                    break;
-                case '首页':
-                    fileName = 'home.html';
-                    break;
-                case '尾页':
-                    fileName = 'end_page.html';
-                    break;
-            }
-
-            if (fileName) {
+        // 监听导航栏点击事件
+        $('.layui-nav-item a').click(function () {
+            var url = $(this).data('url');
+            if (url) {
                 $.ajax({
-                    url: fileName,
+                    url: url,
                     method: 'GET',
                     success: function (data) {
-                        content.html(data);
+                        $('.content').html(data);
                     },
                     error: function () {
-                        content.html('<h2>加载失败</h2><p>无法加载该页面内容，请稍后重试。</p>');
+                        $('.content').html('<h2>加载失败</h2><p>无法加载该页面内容，请稍后重试。</p>');
                     }
                 });
             }

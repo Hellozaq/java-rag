@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>模型管理 - layui</title>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/layui/2.7.6/css/layui.css">
+  <style>
+    body {
+        padding: 0; /* 将页面边距设置为0 */
+    }
+
+.layui-table-view {
+        margin: 8px 0;
+    }
+
+.model-intro {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        padding: 5px;
+        z-index: 1;
+    }
+
+    tr:hover.model-intro {
+        display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+<table id="modelTable"></table>
+
+<script src="https://cdn.staticfile.org/layui/2.7.6/layui.js"></script>
+<script>
+  layui.use('table', function () {
+      var table = layui.table;
+
+      // 模拟数据，实际使用时需替换为真实接口获取的数据
+      var data = [
+          {
+              modelName: "模型1",
+              globalName: "全局名称1",
+              apiUrl: "https://api.example.com/1",
+              apiKey: "abc123",
+              remainingTokens: 100,
+              modelIntro: "这是模型1的介绍，用于演示目的。"
+          },
+          {
+              modelName: "模型2",
+              globalName: "全局名称2",
+              apiUrl: "https://api.example.com/2",
+              apiKey: "def456",
+              remainingTokens: 200,
+              modelIntro: "这是模型2的介绍，用于演示目的。"
+          }
+      ];
+
+      // 渲染表格
+      table.render({
+          elem: '#modelTable',
+          data: data,
+          cols: [[
+              { field: 'modelName', title: '模型名称' },
+              { field: 'globalName', title: '全局名称' },
+              { field: 'apiUrl', title: 'API_URL' },
+              { field: 'apiKey', title: 'API_KEY' },
+              { field:'remainingTokens', title: '剩余token数量' },
+              {
+                  title: '操作',
+                  templet: function (d) {
+                      return '<button class="layui-btn layui-btn-xs" onclick="editModel(\'' + d.modelName + '\')">编辑</button>';
+                  }
+              },
+              {
+                  title: 'Mapping Detail Config',
+                  templet: function (d) {
+                      return '<button class="layui-btn layui-btn-xs" onclick="expandConfig(\'' + d.modelName + '\')">扩展</button>';
+                  }
+              }
+          ]]
+      });
+
+      // 模拟编辑函数
+      function editModel(modelName) {
+          layer.msg('正在编辑模型：' + modelName);
+      }
+
+      // 模拟扩展配置函数
+      function expandConfig(modelName) {
+          layer.msg('正在扩展模型'+ modelName +'的配置');
+      }
+  });
+</script>
+</body>
+
+</html>

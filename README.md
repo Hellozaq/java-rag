@@ -74,7 +74,6 @@ RAG (Retrieval - Augmented Generation) project, implemented in pure Java without
 #### 🎁 [more pipeline](doc/pipeline.md)
 - Advanced RAG
 - Modular RAG
-- 
 #### 🦾 [Agent]
 - MASExample.java
 ### Project Structure

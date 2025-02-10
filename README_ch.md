@@ -8,7 +8,7 @@
 # JAVA-RAG
 
 ### 介绍
-RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spring-boot等。更便于依托企业级环境进行改造,更利于二次开发
+RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spring-boot等。提供 RAG pipeline 和 Agent 模式,更便于依托企业级环境进行改造,更利于二次开发
 ### 快速入门
 ```java
     public void demoNaiveRAG() {
@@ -67,6 +67,8 @@ RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spri
 #### 🎁 [更多 pipeline](doc/pipeline.md)
 - Advanced RAG
 - Modular RAG
+#### 🦾 [Agent]
+- MASExample.java
 ### 项目结构
 说明
 ```shell

@@ -9,8 +9,7 @@
 # JAVA-RAG
 
 ### Introduction
-The RAG (Retrieval-Augmented Generation) project is implemented in pure Java without relying on frameworks such as JFinal and Spring Boot. This makes it easier to adapt to enterprise-level environments and more conducive to secondary development.
-
+RAG (Retrieval - Augmented Generation) project, implemented in pure Java without relying on frameworks like JFinal or spring - boot. It provides the RAG pipeline and Agent pattern, which makes it more convenient to adapt to the enterprise - level environment and more conducive to secondary development.
 ### Quick Start
 ```java
     public void demoNaiveRAG() {
@@ -75,7 +74,9 @@ The RAG (Retrieval-Augmented Generation) project is implemented in pure Java wit
 #### 🎁 [more pipeline](doc/pipeline.md)
 - Advanced RAG
 - Modular RAG
-
+- 
+#### 🦾 [Agent]
+- MASExample.java
 ### Project Structure
 Explanation
 ```shell
@@ -107,7 +108,7 @@ Explanation
 
 1. Clone the code
 ```shell
-git clone https://gitee.com/ChinaYiqun/java-rag.git
+git clone https://github.com/ChinaYiqun/java-rag.git
 ```
 
 2. Enter the project directory

@@ -149,6 +149,8 @@ docker run \ -p 9000:9000 \ -p 9090:9090 \ --name minio \ -v ~/minio/data:/data 
 - 配置灵活度高度定制 Nacos
 
 
+### 页面
+![ezgif-81180eba7adb9d.gif](webapp/resources/ezgif-81180eba7adb9d.gif)
 
 
 ### 参考

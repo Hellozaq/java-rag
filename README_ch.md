@@ -69,6 +69,9 @@ RAG (Retrieval-Augmented Generation)项目,pure Java 实现,不依赖JFinal,spri
 - Modular RAG
 #### 🦾 [Agent]
 - MASExample.java
+#### 🎰 [负载均衡](doc/balance.md)
+- 轮询
+- 权重随机
 ### 项目结构
 说明
 ```shell

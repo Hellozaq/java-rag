@@ -76,6 +76,11 @@ RAG (Retrieval - Augmented Generation) project, implemented in pure Java without
 - Modular RAG
 #### 🦾 [Agent]
 - MASExample.java
+
+#### 🎰 [balance](doc/balance.md)
+- RoundRobinLoadBalancer
+- WeightedRandomLoadBalancer
+
 ### Project Structure
 Explanation
 ```shell

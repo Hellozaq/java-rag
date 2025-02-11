@@ -80,4 +80,31 @@ public class Agent {
             return null;
         }
     }
+
+
+    // 调用大模型生成辩论观点
+    public String generateDebatePoint(String topic) {
+        // 替换为您的API密钥
+        String apiKey = Config.API_KEY;
+        // 使用百川Baichuan3-Turbo模型
+        String model = Config.LLM_MODEL;
+        // API的URL
+        String url = Config.LLM_URL;
+        OpenAIChatService openAIChatService = new OpenAIChatService(apiKey);
+        try {
+            // 构建请求参数
+            JSONObject params = new JSONObject()
+                    .put("model", model)
+                    .put("messages", new JSONObject[] {
+                            new JSONObject().put("role", "user").put("content", "针对辩论赛主题：" + topic + "，作为 " + role + " 发表观点")
+                    })
+                    .put("temperature", 0.3)
+                    .put("stream", false);
+            // 调用大模型生成回复
+            return openAIChatService.generateText(url, params);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -156,6 +156,9 @@ docker run \ -p 9000:9000 \ -p 9090:9090 \ --name minio \ -v ~/minio/data:/data 
 - Integration of mainstream databases: Elastic Search, Redis, Mysql, MinIO
 - Highly customizable configuration with Nacos
 
+### view
+![ezgif-81180eba7adb9d.gif](webapp/resources/ezgif-81180eba7adb9d.gif)
+
 ### References
 
 - [llm-apps-java-spring-ai](https://github.com/ThomasVitale/llm-apps-java-spring-ai/tree/main)

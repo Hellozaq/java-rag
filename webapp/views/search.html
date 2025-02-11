@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索页面 - 基于 layui 的界面设计</title>
+    <!-- 引入 layui 的 CSS 文件，注意在正式项目中请替换为正确的路径 -->
+    <link rel="stylesheet" href="//unpkg.com/layui@2.9.21/dist/css/layui.css">
+    <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+
+        .layui-nav {
+            height: 60px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+        }
+
+        .layui-nav-left {
+            flex: 1;
+        }
+
+        .layui-nav-center {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+        }
+
+        .layui-nav-right {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .layui-nav-item a {
+            color: #fff;
+            padding: 0 20px;
+        }
+
+        .layui-nav-item.layui-this {
+            background-color: #009688;
+        }
+
+        .layui-nav-child {
+            background-color: #444;
+        }
+
+        .layui-nav-child dd a {
+            color: #fff;
+        }
+
+        .content {
+            padding: 20px;
+            background-color: #fff;
+            min-height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* 搜索框样式 */
+        .search-box {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search-box input {
+            width: 300px;
+            height: 30px;
+            padding: 5px;
+        }
+
+        .search-box button {
+            height: 40px; /* 按钮变大，调整高度 */
+            padding: 0 20px; /* 按钮变大，调整内边距 */
+            margin-left: 10px;
+            font-size: 16px; /* 按钮变大，调整字体大小 */
+        }
+
+        /* 搜索结果列表样式 */
+        .search-result-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .search-result-list li {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- 内容区域 -->
+<div class="content">
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="请输入搜索关键词">
+        <button class="layui-btn" id="searchButton">搜索</button>
+    </div>
+    <ul class="search-result-list" id="searchResultList"></ul>
+</div>
+<!-- 引入 layui 的 JS 文件，注意在正式项目中请替换为正确的路径 -->
+<script src="//unpkg.com/layui@2.9.21/dist/layui.js"></script>
+<script>
+    layui.use(['element', 'jquery'], function () {
+        var element = layui.element;
+        var $ = layui.jquery;
+
+        // 点击搜索按钮事件
+        $('#searchButton').on('click', function () {
+            var keyword = $('#searchInput').val();
+            if (keyword) {
+                // 这里可以添加实际的搜索逻辑，例如发送 AJAX 请求到后端搜索接口
+                // 以下是模拟的搜索结果
+                var searchResults = [
+                    { title: '搜索结果 1', content: '这是搜索结果 1 的内容' },
+                    { title: '搜索结果 2', content: '这是搜索结果 2 的内容' },
+                    { title: '搜索结果 3', content: '这是搜索结果 3 的内容' }
+                ];
+
+                // 清空之前的搜索结果
+                $('#searchResultList').empty();
+
+                // 显示搜索结果
+                searchResults.forEach(function (result) {
+                    $('#searchResultList').append('<li><h3>' + result.title + '</h3><p>' + result.content + '</p></li>');
+                });
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

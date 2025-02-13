@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/layui/2.8.12/css/layui.min.css">
     <style>
         /* 整体页面容器 */
-       .page-container {
+        .page-container {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
         /* 定义聊天区域的样式 */
-       .chat-container {
+        .chat-container {
             flex: 1;
             overflow-y: auto;
             border: none;
@@ -24,7 +24,7 @@
         }
 
         /* 定义消息样式 */
-       .message {
+        .message {
             margin-bottom: 10px;
             max-width: 70%;
             padding: 8px 12px;
@@ -32,14 +32,14 @@
         }
 
         /* 对方消息样式 */
-       .message.other {
+        .message.other {
             background-color: #f1f0f0;
             float: left;
             clear: both;
         }
 
         /* 我方消息样式 */
-       .message.self {
+        .message.self {
             background-color: #0084ff;
             color: white;
             float: right;
@@ -47,7 +47,7 @@
         }
 
         /* 定义输入框和发送按钮区域样式 */
-       .input-area {
+        .input-area {
             padding: 10px 0;
             /* 去掉顶部边框 */
             border-top: none;
@@ -60,18 +60,18 @@
         }
 
         /* 让输入框和按钮在同一行显示 */
-       .layui-form-item {
+        .layui-form-item {
             display: flex;
             align-items: center;
         }
 
-       .layui-input {
+        .layui-input {
             flex: 1;
             margin-right: 10px;
         }
 
         /* 确保容器内元素双端对齐 */
-       .layui-container {
+        .layui-container {
             max-width: 800px;
             margin: 0 auto;
             width: 90%; /* 可以调整这个值来控制左右边距 */
@@ -97,7 +97,6 @@
                     <div class="message self">我：忙了一天工作。</div>
 
                     <div class="message other">🤖：辛苦了呀，忙了一天工作肯定挺累的。快坐下来好好休息休息，放松一下。可以和我说说今天工作上有没有发生什么特别的事儿，不管是开心的还是让你觉得有点小郁闷的，都能跟我聊聊，说不定说出来会感觉轻松不少呢。 </div>
-
                 </div>
             </div>
         </div>
@@ -116,22 +115,44 @@
         </div>
     </div>
 </div>
-<!-- 引入 Layui JavaScript 文件 -->
-<script src="https://cdn.staticfile.org/layui/2.8.12/layui.min.js"></script>
+
+<!-- 引入 layui.js -->
+<script src="//unpkg.com/layui@2.9.21/dist/layui.js"></script>
 <script>
     layui.use(['jquery'], function () {
         var $ = layui.jquery;
 
         // 点击发送按钮事件
-        $('#sendButton').on('click', function () {
+        $('#sendButton').on('click', function (e) {
+            // 阻止表单的默认提交行为，避免页面刷新
+            e.preventDefault();
+
+            // 打印日志到控制台
+            console.log('发送按钮被点击');
             var message = $('#inputMessage').val();
             if (message) {
                 // 添加新消息到聊天历史
                 $('#chatHistory').append('<div class="message self">我：' + message + '</div>');
                 // 清空输入框
                 $('#inputMessage').val('');
-                // 滚动到聊天历史底部
-                $('#chatHistory').scrollTop($('#chatHistory')[0].scrollHeight);
+                // 发送消息到服务器
+                $.ajax({
+                    url: 'http://localhost:8080/send',
+                    method: 'POST',
+                    data: { message: message },
+                    dataType: 'json', // 指定返回数据类型为 JSON
+                    success: function (response) {
+                        // 获取生成的回复消息
+                        var generatedText = response.generatedText;
+                        // 添加机器人的回复消息到聊天历史
+                        $('#chatHistory').append('<div class="message other">🤖：' + generatedText + '</div>');
+                        // 滚动到聊天历史底部
+                        $('#chatHistory').scrollTop($('#chatHistory')[0].scrollHeight);
+                    },
+                    error: function () {
+                        console.log('请求失败');
+                    }
+                });
             }
         });
 

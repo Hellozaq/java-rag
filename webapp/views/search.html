@@ -58,9 +58,8 @@
             background-color: #fff;
             min-height: 500px;
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
+            align-items: center;
         }
 
         /* 搜索框样式 */
@@ -69,6 +68,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            width: 100%;
         }
 
         .search-box input {
@@ -88,6 +88,7 @@
         .search-result-list {
             list-style-type: none;
             padding: 0;
+            width: 100%;
         }
 
         .search-result-list li {
@@ -106,7 +107,9 @@
         <input type="text" id="searchInput" placeholder="请输入搜索关键词">
         <button class="layui-btn" id="searchButton">搜索</button>
     </div>
-    <ul class="search-result-list" id="searchResultList"></ul>
+    <div style="flex: 1; width: 100%;">
+        <ul class="search-result-list" id="searchResultList"></ul>
+    </div>
 </div>
 <!-- 引入 layui 的 JS 文件，注意在正式项目中请替换为正确的路径 -->
 <script src="//unpkg.com/layui@2.9.21/dist/layui.js"></script>
@@ -119,20 +122,22 @@
         $('#searchButton').on('click', function () {
             var keyword = $('#searchInput').val();
             if (keyword) {
-                // 这里可以添加实际的搜索逻辑，例如发送 AJAX 请求到后端搜索接口
-                // 以下是模拟的搜索结果
-                var searchResults = [
-                    { title: '搜索结果 1', content: '这是搜索结果 1 的内容' },
-                    { title: '搜索结果 2', content: '这是搜索结果 2 的内容' },
-                    { title: '搜索结果 3', content: '这是搜索结果 3 的内容' }
-                ];
-
                 // 清空之前的搜索结果
                 $('#searchResultList').empty();
 
-                // 显示搜索结果
-                searchResults.forEach(function (result) {
-                    $('#searchResultList').append('<li><h3>' + result.title + '</h3><p>' + result.content + '</p></li>');
+                // 发送 AJAX 请求到 localhost
+                $.ajax({
+                    url: 'http://localhost:8080/search',  // 向 localhost 发送搜索请求
+                    method: 'POST',
+                    data: { keyword: keyword },
+                    dataType: 'html', // 修改为 html 类型，因为后端返回的是 HTML 内容
+                    success: function (response) {
+                        // 将搜索结果插入到搜索结果列表中
+                        $('#searchResultList').html(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('搜索请求失败', status, error);
+                    }
                 });
             }
         });

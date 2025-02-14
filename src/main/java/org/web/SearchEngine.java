@@ -72,6 +72,41 @@ public class SearchEngine {
         }
     }
 
+    /**
+     * 解析结果并返回 HTML 表格格式的字符串
+     * @param results JSON 结果对象
+     * @return HTML 表格字符串
+     */
+    public static String parseResultsHtml(JsonObject results) {
+        StringBuilder html = new StringBuilder();
+        html.append("<table border='1'>");
+        html.append("<tr><th>序号</th><th>标题</th><th>链接</th><th>摘要</th></tr>");
+
+        if (results != null) {
+            // 解析 organic_results 数组中的 title、link 和 snippet 字段
+            JsonArray organicResults = results.getAsJsonArray("organic_results");
+            if (organicResults != null) {
+                for (int i = 0; i < organicResults.size(); i++) {
+                    JsonObject result = organicResults.get(i).getAsJsonObject();
+                    String title = result.get("title").getAsString();
+                    String link = result.get("link").getAsString();
+                    String snippet = "";
+                    if (result.has("snippet") &&!result.get("snippet").isJsonNull()) {
+                        snippet = result.get("snippet").getAsString();
+                    }
+                    html.append("<tr>");
+                    html.append("<td>").append(i + 1).append("</td>");
+                    html.append("<td>").append(title).append("</td>");
+                    html.append("<td><a href='").append(link).append("'>").append(link).append("</a></td>");
+                    html.append("<td>").append(snippet).append("</td>");
+                    html.append("</tr>");
+                }
+            }
+        }
+        html.append("</table>");
+        return html.toString();
+    }
+
     public static void main(String[] args) {
         // 构建请求参数
         Map<String, String> parameter = new HashMap<>();
@@ -81,7 +116,9 @@ public class SearchEngine {
 
         JsonObject results = getResult(parameter);
         if (results != null) {
-            parseResults(results);
+            // 调用 parseResultsHtml 方法获取 HTML 表格字符串
+            String htmlTable = parseResultsHtml(results);
+            System.out.println(htmlTable);
         }
     }
 }

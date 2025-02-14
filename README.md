@@ -84,28 +84,22 @@ RAG (Retrieval - Augmented Generation) project, implemented in pure Java without
 ### Project Structure
 Explanation
 ```shell
-├── pom.xml
-├── src
-│   ├── main
-│   │   ├── java
-│   │   │   └── org
-│   │   │       ├── chunk
-│   │   │       ├── constant
-│   │   │       ├── entity
-│   │   │       ├── parser
-│   │   │       ├── rag
-│   │   │       ├── search
-│   │   │       ├── service
-│   │   │       │   ├── LLM
-│   │   │       │   ├── db
-│   │   │       │   └── embedding
-│   │   │       └── utils
-│   │   └── resources
-│   └── test
-│       └── java
-│           └── org
-│               ├── chat
-│               └── db
+├── agent
+├── chunk
+├── constant
+├── controler
+├── demo
+├── entity
+├── parser
+├── rag
+├── search
+├── service
+│   ├── LLM
+│   ├── balance
+│   ├── db
+│   └── embedding
+├── utils
+└── web
 ```
 
 ### 🧒 Concise Installation Tutorial

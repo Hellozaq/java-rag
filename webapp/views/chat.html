@@ -105,10 +105,12 @@
     <div class="layui-row">
         <div class="layui-col-md12 input-area">
             <div class="layui-container">
-                <form class="layui-form">
+                <form class="layui-form" id="chatForm">
                     <div class="layui-form-item">
                         <input type="text" id="inputMessage" placeholder="请输入消息" class="layui-input">
+                        <input type="file" id="fileInput" style="display: none;">
                         <button class="layui-btn" id="sendButton">发送</button>
+                        <button class="layui-btn" id="uploadButton">上传文件</button>
                     </div>
                 </form>
             </div>
@@ -160,6 +162,56 @@
         $('#inputMessage').on('keydown', function (e) {
             if (e.keyCode === 13) {
                 $('#sendButton').click();
+            }
+        });
+
+        // 点击上传文件按钮事件
+        $('#uploadButton').on('click', function (e) {
+            e.preventDefault();
+            $('#fileInput').click();
+        });
+
+        // 监听文件选择事件
+        $('#fileInput').on('change', function () {
+            var file = this.files[0];
+            if (file) {
+                // 创建 FormData 对象
+                var formData = new FormData();
+                formData.append('isFile', 'true');
+                formData.append('file', file);
+                formData.append('originalFileName', file.name);
+
+                // 显示正在上传的提示
+                $('#chatHistory').append('<div class="message self">我：正在上传文件，请稍候...</div>');
+                $('#chatHistory').scrollTop($('#chatHistory')[0].scrollHeight);
+
+                // 发送文件到服务器
+                $.ajax({
+                    url: 'http://localhost:8080/sendFile',
+                    method: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        try {
+                            var responseJson = JSON.parse(response);
+                            // 获取生成的回复消息
+                            var generatedText = responseJson.generatedText;
+                            // 添加机器人的回复消息到聊天历史
+                            $('#chatHistory').append('<div class="message other">🤖：' + generatedText + '</div>');
+                        } catch (error) {
+                            console.log('解析响应数据失败:', error);
+                            $('#chatHistory').append('<div class="message other">🤖：解析服务器响应失败，请重试。</div>');
+                        }
+                        // 滚动到聊天历史底部
+                        $('#chatHistory').scrollTop($('#chatHistory')[0].scrollHeight);
+                    },
+                    error: function () {
+                        console.log('文件上传请求失败');
+                        $('#chatHistory').append('<div class="message other">🤖：文件上传或处理失败，请重试。</div>');
+                        $('#chatHistory').scrollTop($('#chatHistory')[0].scrollHeight);
+                    }
+                });
             }
         });
     });

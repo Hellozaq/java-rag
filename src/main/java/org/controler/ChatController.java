@@ -2,6 +2,7 @@ package org.controler;
 
 import fi.iki.elonen.NanoHTTPD;
 import org.json.JSONObject;
+import org.parser.FileParserFactory;
 import org.service.LLM.OpenAIChatService;
 import org.constant.Config;
 
@@ -50,7 +51,7 @@ public class ChatController extends NanoHTTPD {
                 html.append("</body></html>");
                 response = newFixedLengthResponse(html.toString());
             } else if (Method.POST.equals(method) && "/send".equals(uri)) {
-                // 处理 POST 请求，将新消息添加到聊天历史记录中
+                // 处理普通 POST 请求
                 session.parseBody(new HashMap<>());
                 Map<String, String> params = session.getParms();
                 String message = params.get("message");
@@ -80,6 +81,60 @@ public class ChatController extends NanoHTTPD {
                     response = newFixedLengthResponse(Response.Status.OK, "application/json", responseJson.toString());
                 } else {
                     response = newFixedLengthResponse(Response.Status.BAD_REQUEST, "text/plain", "Message is empty");
+                }
+            } else if (Method.POST.equals(method) && "/sendFile".equals(uri)) {
+                // 检查是否是文件上传请求
+                if (session.getHeaders().get("content-type") != null && session.getHeaders().get("content-type").startsWith("multipart/form-data")) {
+                    try {
+                        Map<String, String> files = new HashMap<>();
+                        session.parseBody(files);
+                        String isFile = session.getParms().get("isFile");
+                        if ("true".equals(isFile)) {
+                            String fileParamName = "file";
+                            String filePath = files.get(fileParamName);
+                            String originalFileName = session.getParms().get("originalFileName");
+                            if (filePath != null && originalFileName != null) {
+                                try {
+                                    // 调用 FileParserFactory 解析文件内容
+                                    String content = FileParserFactory.easyParse(filePath, originalFileName);
+                                    String processedMessage = "解析文件内容：" + content;
+                                    chatHistory.put("User", processedMessage);
+
+                                    // 调用 OpenAIChatService 生成回复消息
+                                    String model = Config.LLM_MODEL;
+                                    String url = Config.LLM_URL;
+                                    JSONObject newMessage = new JSONObject().put("role", "user").put("content", processedMessage);
+                                    JSONObject[] messages = new JSONObject[]{newMessage};
+                                    JSONObject paramsForAPI = new JSONObject()
+                                            .put("model", model)
+                                            .put("messages", messages)
+                                            .put("temperature", 0.3)
+                                            .put("stream", false);
+
+                                    String generatedText = openAIChatService.generateText(url, paramsForAPI);
+                                    System.out.println(generatedText);
+                                    chatHistory.put("Bot", generatedText);
+
+                                    // 创建一个 JSON 对象，将生成的文本放入其中
+                                    JSONObject responseJson = new JSONObject();
+                                    responseJson.put("generatedText", generatedText);
+
+                                    // 将 JSON 对象转换为字符串并返回
+                                    response = newFixedLengthResponse(Response.Status.OK, "application/json", responseJson.toString());
+                                } catch (Exception e) {
+                                    response = newFixedLengthResponse(Response.Status.INTERNAL_ERROR, "text/plain", "文件解析失败：" + e.getMessage());
+                                }
+                            } else {
+                                response = newFixedLengthResponse(Response.Status.BAD_REQUEST, "text/plain", "未找到上传的文件或原始文件名");
+                            }
+                        } else {
+                            response = newFixedLengthResponse(Response.Status.BAD_REQUEST, "text/plain", "不是文件上传请求");
+                        }
+                    } catch (Exception e) {
+                        response = newFixedLengthResponse(Response.Status.INTERNAL_ERROR, "text/plain", "处理请求时出错：" + e.getMessage());
+                    }
+                } else {
+                    response = newFixedLengthResponse(Response.Status.BAD_REQUEST, "text/plain", "不是有效的文件上传请求");
                 }
             } else {
                 response = newFixedLengthResponse(Response.Status.NOT_FOUND, "text/plain", "Not Found");

@@ -45,11 +45,11 @@ public class SearchEngine {
     public static void parseResults(JsonObject results) {
         if (results != null) {
             // 解析 search_information 中的 query_displayed 字段
-            JsonObject searchInformation = results.getAsJsonObject("search_information");
-            if (searchInformation != null) {
-                String queryDisplayed = searchInformation.get("query_displayed").getAsString();
-                System.out.println("查询关键词: " + queryDisplayed);
-            }
+//            JsonObject searchInformation = results.getAsJsonObject("search_information");
+//            if (searchInformation != null) {
+//                String queryDisplayed = searchInformation.get("query_displayed").getAsString();
+//                System.out.println("查询关键词: " + queryDisplayed);
+//            }
 
             // 解析 organic_results 数组中的 title、link 和 snippet 字段
             JsonArray organicResults = results.getAsJsonArray("organic_results");
@@ -110,15 +110,18 @@ public class SearchEngine {
     public static void main(String[] args) {
         // 构建请求参数
         Map<String, String> parameter = new HashMap<>();
-        parameter.put("engine", "baidu");
-        parameter.put("q", "Coffee");
+        parameter.put("engine", "bing");
+        parameter.put("q", "哪吒二");
         parameter.put("api_key", "1af00627e582c9238b8c947d2300dd13331a9817523811a83dc16245ed98d444");
+
 
         JsonObject results = getResult(parameter);
         if (results != null) {
+            parseResults(results);
             // 调用 parseResultsHtml 方法获取 HTML 表格字符串
-            String htmlTable = parseResultsHtml(results);
-            System.out.println(htmlTable);
+//            String htmlTable = parseResultsHtml(results);
+//            System.out.println(htmlTable);
+
         }
     }
 }
